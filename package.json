@@ -9,7 +9,9 @@
   },
   "dependencies": {
     "core-js": "^3.6.5",
+    "splitpanes": "^2.3.6",
     "vue": "^2.6.11",
+    "vue-router": "^3.4.9",
     "vue-waterfall": "^1.0.6"
   },
   "devDependencies": {
