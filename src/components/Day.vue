@@ -1,21 +1,29 @@
 <template>
-  <splitpanes class="day">
-    <router-view></router-view>
-    <pane v-for="i in 3" :key="i">
-      <div>{{ i }}</div>
-      <h1>test</h1>
-    </pane>
-  </splitpanes>
+  <div id="day">
+    <splitpanes horizontal class="default-theme">
+      <pane min-size="100">
+        <splitpanes class="default-theme" vertical>
+          <pane min-size="15">
+            <Card class="card" :num="1" />
+          </pane>          
+          <pane>2</pane>
+        </splitpanes>
+      </pane>
+      <pane min-size="20">3</pane>
+    </splitpanes>
+  </div>
 </template>
 
 <script>
 
+import Card from './Card'
 import { Splitpanes, Pane } from 'splitpanes'
 import 'splitpanes/dist/splitpanes.css'
 
 export default {
   name: 'Day',
   components: {
+    Card,
     Splitpanes,
     Pane
   },
@@ -23,12 +31,22 @@ export default {
 </script>
 
 <style>
-#day {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+.card {
+  height: 100%;
+  width: 100%;
+}
+.splitpanes__pane {
+  box-shadow: 0 0 3px rgba(0, 0, 0, .2) inset;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  position: relative;
+}
+
+html, body, #day {height: 100%; margin: 0;}
+body {
+  font-family: Helvetica, Arial, sans-serif;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 5em;
 }
 </style>
