@@ -11,12 +11,12 @@ const solve = async function(part) {
     ranges.push(inputArray[i]);
   }
 
-  for (var i = 1; i < inputArray.length; i=i+3) {
-    letters.push(inputArray[i]);
+  for (var j = 1; j < inputArray.length; j=j+3) {
+    letters.push(inputArray[j]);
   }
 
-  for (var i = 2; i < inputArray.length; i=i+3) {
-    passwords.push(inputArray[i]);
+  for (var k = 2; k < inputArray.length; k=k+3) {
+    passwords.push(inputArray[k]);
   }
 
   if(part == 1) {
@@ -40,10 +40,24 @@ const solve1 = function(ranges, letters, passwords) {
   return correct
 }
 
-const solve2 = function(ranges, letters, passwords) {    
-  console.log(ranges)
-  console.log(letters)
-  console.log(passwords)
+const solve2 = function(ranges, letters, passwords) {
+  var correct = 0;
+  ranges.forEach((range, i) => {
+    const first = getMin(range) - 1
+    const second = getMax(range) - 1
+
+    var matching = 0
+    if(passwords[i][first] == letters[i][0]) {
+      matching++
+    }
+    if(passwords[i][second] == letters[i][0]) {
+      matching++
+    }
+    if(matching == 1) {
+      correct++
+    }
+  })
+  return correct
 }
 
 const getMin = function(range) {
