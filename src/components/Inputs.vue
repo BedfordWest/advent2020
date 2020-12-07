@@ -1,7 +1,9 @@
 <template>  
   <div class="container">
     <h1>Inputs</h1>
-    <div class="inputs" v-html="compiledJson"></div>
+    <pre>
+      <div class="inputs" v-html="compiledJson"></div>
+    </pre>
   </div>
 </template>
 
@@ -39,6 +41,7 @@ h1 {
   overflow: scroll;
   max-height: 100%;
   height: 100%;
+  width: 100%;
 }
 .inputs {
   padding: 5px 20px;
