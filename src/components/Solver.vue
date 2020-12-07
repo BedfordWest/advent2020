@@ -1,6 +1,7 @@
 <template>  
   <div class="solver">
-    <button class="solve" v-on:click="getSolution()">Solve</button>
+    <button class="solve" v-on:click="getSolution(1)">Solve Pt1</button>
+    <button class="solve" v-on:click="getSolution(2)">Solve Pt2</button>
     <div class="terminal">{{computedSolution}}</div>
   </div>
 </template>
@@ -27,11 +28,11 @@ export default {
     }
   },
   methods: {
-    getSolution: function() {
+    getSolution: function(part) {
       const solution = require(`../day${this.day}/solution.js`)
 
       this.$data.displaySolution = 'Solving, please wait...'
-      setTimeout(() => { solution.default().then(response => this.$data.displaySolution = response) }, 1000);
+      setTimeout(() => { solution.default(part).then(response => this.$data.displaySolution = response) }, 1000);
     }
   }
 }
@@ -56,7 +57,7 @@ export default {
     align-items: center;
     justify-content: center;
     font-weight: 500;
-    font-size: 1.25em;
+    font-size: 1em;
 }
 
 .terminal{
