@@ -2,21 +2,16 @@ const solve = async function(part) {
   const file = require(`../day2/INPUTS.json`)
 
   const inputs = file.inputs
-  var inputArray = inputs.split(" ")
+  var inputArray = inputs.split("\n\r")
   var ranges = []
   var letters = []
   var passwords = []
 
-  for (var i = 0; i < inputArray.length; i=i+3) {
-    ranges.push(inputArray[i]);
-  }
-
-  for (var j = 1; j < inputArray.length; j=j+3) {
-    letters.push(inputArray[j]);
-  }
-
-  for (var k = 2; k < inputArray.length; k=k+3) {
-    passwords.push(inputArray[k]);
+  for (var i = 0; i < inputArray.length; i++) {
+    var splitArray = inputArray[i].split(" ")
+    ranges.push(splitArray[0]);
+    letters.push(splitArray[1])
+    passwords.push(splitArray[2])
   }
 
   if(part == 1) {

@@ -2,7 +2,7 @@ const solve = async function(part) {
     const file = require(`../day1/INPUTS.json`)
 
     const inputs = file.inputs
-    var inputArray = inputs.split(" ").map(entry => entry = parseInt(entry))
+    var inputArray = inputs.split("\n\r").map(entry => entry = parseInt(entry))
 
     if(part == 1) {
         return solve1(inputArray)
