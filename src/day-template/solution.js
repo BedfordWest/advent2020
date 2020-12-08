@@ -13,11 +13,11 @@ const solve = async function(part) {
 }
 
 const solve1 = function(inputArray) {
-
+  console.log(inputArray)
 }
 
 const solve2 = function(inputArray) {    
-
+  console.log(inputArray)
 }
 
 export default solve;
