@@ -8,7 +8,12 @@ const solve = async function(part) {
       return solve1(inputArray, 3, 1)
   }
   else {
-      return solve2(inputArray)
+      var slope1 = solve1(inputArray, 1, 1)
+      var slope2 = solve1(inputArray, 3, 1)
+      var slope3 = solve1(inputArray, 5, 1)
+      var slope4 = solve1(inputArray, 7, 1)
+      var slope5 = solve1(inputArray, 1, 2)
+      return slope1 * slope2 * slope3 * slope4 * slope5
   }
 }
 
@@ -16,10 +21,6 @@ const solve1 = function(inputArray, right, down) {
   var times = tilesRequired(inputArray, right, down)
   inputArray = copyMap(inputArray, times)
   return countTrees(inputArray, right, down)
-}
-
-const solve2 = function(inputArray) {    
-  console.log(inputArray)
 }
 
 // Determine how many copies of the input map need to be made to ski down
