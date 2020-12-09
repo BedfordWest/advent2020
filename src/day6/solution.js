@@ -14,15 +14,17 @@ const solve = async function(part) {
 
 const solve1 = function(inputArray) {
   return inputArray.reduce((acc, curr) => {    
-    return (acc + getGroupCount(curr))
+    return (acc + getGroupAnyCount(curr))
   }, 0)
 }
 
 const solve2 = function(inputArray) {    
-  console.log(inputArray)
+  return inputArray.reduce((acc, curr) => {    
+    return (acc + getGroupEveryCount(curr))
+  }, 0)
 }
 
-const getGroupCount = function(group) {
+const getGroupAnyCount = function(group) {
   var set = new Set()
   var people = group.split("\n\r")
   for(var person of people) {
@@ -32,6 +34,16 @@ const getGroupCount = function(group) {
     }
   }
   return set.size
+}
+
+const getGroupEveryCount = function(group) {
+  var people = group.split("\n\r")
+  var common = "abcdefghijklmnopqrstuvwxyz".split('')
+  for(var person of people) {
+    person = person.split('')    
+    common = common.filter(answer => person.includes(answer));
+  }
+  return common.length
 }
 
 export default solve;
