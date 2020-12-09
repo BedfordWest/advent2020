@@ -20,8 +20,15 @@ const solve1 = function(inputArray) {
   return inputArray[0]
 }
 
-const solve2 = function(inputArray) {    
+const solve2 = function(inputArray) {   
+  inputArray = inputArray.map(input => {
+    return getSeatId(input)
+  })
+  inputArray.sort(function(a, b){ return b - a });
   console.log(inputArray)
+  for(var i = 8; i < inputArray.length - 7; i++) {
+    if((inputArray[i - 1] - inputArray[i]) > 1) { return inputArray[i] + 1 }
+  }
 }
 
 const getSeatId = function(seat) {
@@ -41,7 +48,7 @@ const getSeatId = function(seat) {
   row = min
   min = 0
   max = 7
-  for(var j = 7; j < 9; j++) {
+  for(var j = 7; j < 10; j++) {
     if(seat[j] == 'R') {
       min += Math.ceil((max - min)/2)
     }
