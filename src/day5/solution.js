@@ -25,7 +25,6 @@ const solve2 = function(inputArray) {
     return getSeatId(input)
   })
   inputArray.sort(function(a, b){ return b - a });
-  console.log(inputArray)
   for(var i = 8; i < inputArray.length - 7; i++) {
     if((inputArray[i - 1] - inputArray[i]) > 1) { return inputArray[i] + 1 }
   }
