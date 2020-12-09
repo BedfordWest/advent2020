@@ -145,6 +145,7 @@ const pidValidity = function(entry) {
 }
 
 const cidValidity = function(entry) {
+  if(entry) { console.log(entry) }
   return true  
 }
 
