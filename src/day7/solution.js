@@ -6,23 +6,24 @@ const solve = async function(part) {
   const inputs = file.inputs
   var inputArray = inputs.split("\n\r")
 
+  inputArray.forEach(bagRule => {
+    parseBagRule(bagRule)    
+  })
+
   if(part == 1) {
-      return solve1(inputArray)
+      return solve1()
   }
   else {
       return solve2(inputArray)
   }
 }
 
-const solve1 = function(inputArray) {
-  inputArray.forEach(bagRule => {
-    parseBagRule(bagRule)    
-  })
+const solve1 = function() {
   return searchBagsForGold()
 }
 
-const solve2 = function(inputArray) {    
-  console.log(inputArray)
+const solve2 = function() {
+  return countBags()
 }
 
 const parseBagRule = function(bagRule) {  
@@ -76,10 +77,24 @@ const goldInBag = function(bag) {
   })
 }
 
+const countBags = function () {
+  let count = 0
+  for (var bag of bags["shiny gold"]) { 
+    let localCount = countInner(bag)
+    count += localCount
+  }
+  return count
+}
 
-
-/*const getContainingBags = function(bagRule) {
-
-}*/
+const countInner = function (innerBag) {
+  if(innerBag == "no other") { return 0 }
+  let innerCount = 0
+  let thisCount = innerBag[Object.keys(innerBag)]
+  let bagName = Object.keys(innerBag)[0]  
+  bags[bagName].forEach((newBag) => {
+    innerCount += countInner(newBag)
+  })
+  return thisCount + thisCount * innerCount
+}
 
 export default solve;
