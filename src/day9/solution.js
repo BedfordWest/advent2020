@@ -1,3 +1,5 @@
+var added = []
+
 const solve = async function(part) {
   const file = require(`../day9/INPUTS.json`)
 
@@ -21,8 +23,11 @@ const solve1 = function(inputArray) {
   }
 }
 
-const solve2 = function(inputArray) {    
-  console.log(inputArray)
+const solve2 = function(inputArray) {
+  let invalid = solve1(inputArray)
+  tryToSolve(inputArray, invalid)
+  added.sort((a, b) => a - b)
+  return added[0] + added[added.length - 1]  
 }
 
 const checkInput = function(slice, current) {
@@ -33,6 +38,32 @@ const checkInput = function(slice, current) {
       return (innerEl + el == current)
     })
   })
+}
+
+const tryToSolve = function(inputArray, invalid) {
+  for(let i = 0; i < (inputArray.length - 1); i++) {
+    added = []
+    if(inputArray[i] >= invalid) {
+      continue
+    } else {
+      added.push(inputArray[i])
+      if(recursiveAdd(inputArray, i, inputArray[i], invalid)) {
+        break
+      }
+    }
+  }
+}
+
+const recursiveAdd = function(inputArray, index, currentSum, invalid) {
+  if(inputArray[index + 1] >= invalid) { 
+    return false 
+  }
+  currentSum += inputArray[index + 1]
+  added.push(inputArray[index + 1])
+  if(currentSum == invalid) {
+    return true
+  }
+  return recursiveAdd(inputArray, index + 1, currentSum, invalid)
 }
 
 export default solve;
