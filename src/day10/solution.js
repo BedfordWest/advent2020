@@ -37,7 +37,6 @@ const solve1 = function(inputArray) {
 
 const solve2 = function(inputArray) {
   const skips = []
-  console.log(inputArray)
   inputArray.forEach((adapter, i) => {
     var diff = 0
     if(i != 0) {
