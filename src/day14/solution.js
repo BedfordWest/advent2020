@@ -101,8 +101,6 @@ const applyMemories = function(memory, val) {
     } else { return memStr[i] }
   })
 
-  console.log(memStr.join(''))
-
   let xLocs = []
   memStr.forEach((dig, i) => {
     if(dig == 'X') {
@@ -110,24 +108,19 @@ const applyMemories = function(memory, val) {
     }
   })
 
+
   let startVal = fromBinary(memStr.map((dig) => {
     if(dig == 'X') {
       return '0'
     } else { return dig }
-  }))
+  }).join(''))
 
   let memVals = [startVal]
   let allMems = addRecursive(memVals, xLocs)
 
-  console.log(allMems)
-
-  console.log(memories)
-
   allMems.forEach((mem) => {
     memories[mem] = parseInt(val, 10)
   })
-
-  console.log(memories)
 }
 
 const addRecursive = function(storedVals, remaining) {
