@@ -16,11 +16,6 @@ const solve = async function(part) {
 }
 
 const solve1 = function(inputArray) {
-  let sample = 59
-  sample = sample.toString(2)
-  while(sample.length < 36) {
-    sample = '0' + sample
-  }
   inputArray.forEach((instruction) => {
     parseInstruction(instruction)
   })
@@ -33,7 +28,15 @@ const solve1 = function(inputArray) {
 }
 
 const solve2 = function(inputArray) {    
-  console.log(inputArray)
+  inputArray.forEach((instruction) => {
+    parseInstructionFloating(instruction)
+  })
+
+  let sum = 0
+  for(let entry in memories) {
+    sum += memories[entry]
+  }
+  return sum
 }
 
 const parseInstruction = function(instruction) {
@@ -47,8 +50,19 @@ const parseInstruction = function(instruction) {
   }
 }
 
+const parseInstructionFloating = function(instruction) {
+  let parsed = instruction.split(' = ')
+  if(parsed[0] == "mask") {
+    mask = parsed[1]
+  } else {
+    let mem = parsed[0].match(/\d+/)    
+    let memVal = parsed[1]
+    applyMemories(mem, memVal)
+  }
+}
+
 const toBinary = function(val) {
-  val = parseInt(val).toString(2)
+  val = parseInt(val, 10).toString(2)
   while(val.length < 36) {
     val = '0' + val
   }
@@ -72,5 +86,60 @@ const applyMask = function(val) {
   })
   return valStr.join('')
 }
+
+const applyMemories = function(memory, val) {
+  memory = toBinary(memory)
+  let maskStr = mask.split('')
+  let memStr = memory.split('')
+
+  console.log(memory)
+  console.log(mask)
+
+  memStr = memStr.map((_, i) => {
+    if(maskStr[i] != '0') {
+      return maskStr[i]
+    } else { return memStr[i] }
+  })
+
+  console.log(memStr.join(''))
+
+  let xLocs = []
+  memStr.forEach((dig, i) => {
+    if(dig == 'X') {
+      xLocs.push(memStr.length - i - 1)
+    }
+  })
+
+  let startVal = fromBinary(memStr.map((dig) => {
+    if(dig == 'X') {
+      return '0'
+    } else { return dig }
+  }))
+
+  let memVals = [startVal]
+  let allMems = addRecursive(memVals, xLocs)
+
+  console.log(allMems)
+
+  console.log(memories)
+
+  allMems.forEach((mem) => {
+    memories[mem] = parseInt(val, 10)
+  })
+
+  console.log(memories)
+}
+
+const addRecursive = function(storedVals, remaining) {
+  if(remaining.length == 0) {
+    return storedVals
+  }
+  let iMax = storedVals.length
+  for(let i = 0; i < iMax; i++) {
+    storedVals.push(storedVals[i] + Math.pow(2, remaining[0]))
+  }
+  return addRecursive(storedVals, remaining.slice(1))
+}
+
 
 export default solve;
