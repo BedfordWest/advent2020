@@ -46,13 +46,11 @@ const solve2 = function(inputArray) {
   })
   .filter((bus) => bus != null)
 
-
-
-  let found = 0n
   let lcm = originalBuses[0][0]
   let minutes = lcm - originalBuses[0][1]
   for(let i = 1; i < originalBuses.length; i++) {
-    while(true) {
+    let bool = true
+    while(bool) {
       minutes += lcm      
       if((minutes + originalBuses[i][1]) % originalBuses[i][0] != 0) {
         continue
