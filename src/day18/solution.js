@@ -13,18 +13,22 @@ const solve = async function(part) {
 }
 
 const solve1 = function(inputArray) {
+  return addLines(inputArray, false)
+}
+
+const solve2 = function(inputArray) {    
+  return addLines(inputArray, true)
+}
+
+const addLines = function(inputArray, advanced) {
   let sum = 0
   inputArray.forEach((line) => {
-    sum += parseLine(line)
+    sum += parseLine(line, advanced)
   })
   return sum
 }
 
-const solve2 = function(inputArray) {    
-  console.log(inputArray)
-}
-
-const parseLine = function(line) {
+const parseLine = function(line, advanced) {
   let finished = false
 
   while(!finished) {
@@ -42,7 +46,7 @@ const parseLine = function(line) {
 
     // Evaluate the expression and swap the result into the original spot
     let expression = line.slice(lastParen, endLocation)
-    expression = parseExpression(expression)
+    expression = parseExpression(expression, advanced)
     let sliceAt = lastParen - 1
     if(sliceAt < 0) {
       sliceAt = 0
@@ -52,17 +56,29 @@ const parseLine = function(line) {
   return parseInt(line)
 }
 
-const parseExpression = function(expression) {
+const parseExpression = function(expression, advanced) {
   expression = expression.split(" ")
   while(expression.length > 1) {
-    let left = expression[0]
-    let sign = expression[1]
-    let right = expression[2]
-    let result = performOperation(left, sign, right)
-    for(let i = 0; i < 3; i++) {
-      expression.shift()
+    let pluses = 0
+    for(let j = 1; j < expression.length; j += 2) {
+      if(expression[j] == '+') {
+        pluses++
+      }
     }
-    expression.unshift(result)
+    let startPos = 0
+    let performed = false
+    while(!performed) {
+      let left = expression[startPos]
+      let sign = expression[startPos + 1]
+      let right = expression[startPos + 2]
+      if((pluses > 0) && (sign == '*') && (advanced == true)) {
+        startPos += 2
+      } else {
+        let result = performOperation(left, sign, right)
+        expression.splice(startPos, 3, result)
+        performed = true
+      }
+    }
   }
   return expression[0]
 }
