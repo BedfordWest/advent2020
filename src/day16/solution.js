@@ -24,7 +24,7 @@ const solve = async function(part) {
 
 const solve1 = function(fieldArray, nearByArray) {
   parseFields(fieldArray)
-  nearByArray = findInvalids(nearByArray)
+  findInvalids(nearByArray)
   let sum = invalids.reduce((a,b) => a + b)
   return sum
 }
@@ -83,7 +83,7 @@ const inFieldRanges = function(val) {
 }
 
 const findFields = function(nearByArray) {
-  return fieldRanges.map((fRange, i) => {
+  return fieldRanges.map((fRange) => {
     let possibles = []
     for(let k = 0; k < nearByArray[0].length; k++) {
       // Check each ticket to see if the value matches the field
@@ -112,7 +112,7 @@ const singleOutFields = function(fields) {
       if(fields[j][1].length == 1) {
         let foundVal = fields[j][1][0]
         newFields.push(_.cloneDeep(fields[j]))
-        fields = fields.map((innerField, k) => {
+        fields = fields.map((innerField) => {
           let foundAt = innerField[1].indexOf(foundVal)
           innerField[1].splice(foundAt, 1)
           return innerField
